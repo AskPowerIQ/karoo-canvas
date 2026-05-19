@@ -9,38 +9,155 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VisitRouteImport } from './routes/visit'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as CollectionRouteImport } from './routes/collection'
+import { Route as ArtistsRouteImport } from './routes/artists'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArtworkIdRouteImport } from './routes/artwork.$id'
 
+const VisitRoute = VisitRouteImport.update({
+  id: '/visit',
+  path: '/visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionRoute = CollectionRouteImport.update({
+  id: '/collection',
+  path: '/collection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsRoute = ArtistsRouteImport.update({
+  id: '/artists',
+  path: '/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArtworkIdRoute = ArtworkIdRouteImport.update({
+  id: '/artwork/$id',
+  path: '/artwork/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/artists': typeof ArtistsRoute
+  '/collection': typeof CollectionRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/visit': typeof VisitRoute
+  '/artwork/$id': typeof ArtworkIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/artists': typeof ArtistsRoute
+  '/collection': typeof CollectionRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/visit': typeof VisitRoute
+  '/artwork/$id': typeof ArtworkIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/artists': typeof ArtistsRoute
+  '/collection': typeof CollectionRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/visit': typeof VisitRoute
+  '/artwork/$id': typeof ArtworkIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/artists'
+    | '/collection'
+    | '/sitemap.xml'
+    | '/visit'
+    | '/artwork/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/artists'
+    | '/collection'
+    | '/sitemap.xml'
+    | '/visit'
+    | '/artwork/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/artists'
+    | '/collection'
+    | '/sitemap.xml'
+    | '/visit'
+    | '/artwork/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ArtistsRoute: typeof ArtistsRoute
+  CollectionRoute: typeof CollectionRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VisitRoute: typeof VisitRoute
+  ArtworkIdRoute: typeof ArtworkIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/visit': {
+      id: '/visit'
+      path: '/visit'
+      fullPath: '/visit'
+      preLoaderRoute: typeof VisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collection': {
+      id: '/collection'
+      path: '/collection'
+      fullPath: '/collection'
+      preLoaderRoute: typeof CollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists': {
+      id: '/artists'
+      path: '/artists'
+      fullPath: '/artists'
+      preLoaderRoute: typeof ArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/artwork/$id': {
+      id: '/artwork/$id'
+      path: '/artwork/$id'
+      fullPath: '/artwork/$id'
+      preLoaderRoute: typeof ArtworkIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ArtistsRoute: ArtistsRoute,
+  CollectionRoute: CollectionRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VisitRoute: VisitRoute,
+  ArtworkIdRoute: ArtworkIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
